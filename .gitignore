@@ -1,3 +1,7 @@
+#custom
+.vscode/
+DB
+
 # Logs
 logs
 *.log
