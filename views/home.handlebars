@@ -1,0 +1,12 @@
+<h1>Hello, from the template</h1>
+
+<ul>
+    {{#each messages}}
+    <li>{{this}}</li>
+    {{/each}}
+</ul>
+
+<form action="/message" method="post">
+    <input type="text" name='content'>
+    <button type="submit">send</button>
+</form>
