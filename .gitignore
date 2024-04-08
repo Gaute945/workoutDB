@@ -1,6 +1,9 @@
 #custom
 .vscode/
 DB
+mydatabase.db
+mydatabase.DB
+node_modules
 
 # Logs
 logs
