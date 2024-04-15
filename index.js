@@ -100,15 +100,14 @@ app.get('/home', function (req, res) {
     }
 });
 
-app.post('/products', async (req, res) => {
+app.post('/workouts', async (req, res) => {
     const { category } = req.body;
     const db = await dbPromise;
 
-    const query = 'SELECT * FROM products WHERE category = ?';
-    const products = await db.all(query, [category]);
+    const query = 'SELECT workoutName FROM workouts WHERE category = ?';
+    const workoutsFromDB = await db.all(query, [category]);
 
-    res.render('products', { products });
-
+    res.render('workouts', { workouts: workoutsFromDB });
 });
 
 app.get("/logout", async (req, res) => {
