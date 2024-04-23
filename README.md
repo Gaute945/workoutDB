@@ -1,5 +1,3 @@
-[products.ejs](/views/products.ejs)
- - change content to be workoutAPP
- - dropdown chose workouts
+ - Make ban button in admin page work
 
 ![workoutDB diagram](https://github.com/Gaute945/workoutDB/blob/main/workoutDB%20diagram.png)
