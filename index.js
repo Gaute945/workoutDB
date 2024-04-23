@@ -132,6 +132,15 @@ app.get('/admin', async function (req, res) {
   }
 });
 
+app.post('/admin', async (req, res) => {
+  const db = await dbPromise;
+  const username = req.body.username;
+  
+  await db.get(`delete from users where username = '${username}'`);
+  res.redirect('/home');
+  console.log(req.body);
+});
+
 app.get("/logout", async (req, res) => {
   req.session.loggedin = false;
   req.session.username = '';

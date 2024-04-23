@@ -18,14 +18,19 @@
       <tr>
         <th>Brukernavn</th>
         <th>Email</th>
+        <th>Action</th>
       </tr>
       <% users.forEach((user) => { %>
       <tr>
-        <td><%= user.username %> </td>
+        <td><%= user.username %></td>
         <td><%= user.email %></td>
-        <form>
-          <td><button>ban</button></td>
-        </form> 
+        <td>
+          <form action="/admin" method="post">
+            <input type="hidden" name="username" value="<%= user.username %>">
+            <input type="hidden" name="email" value="<%= user.email %>">
+            <button type="submit">Ban</button>
+          </form>
+        </td>
       </tr>
       <% }) %>
     </table>
