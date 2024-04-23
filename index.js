@@ -1,8 +1,8 @@
 import express from 'express';
 import session from 'express-session';
 import { open } from "sqlite";
-import sqlite3 from 'sqlite3'
-import bcrypt from 'bcrypt'
+import sqlite3 from 'sqlite3';
+import bcrypt from 'bcrypt';
 
 const dbPromise = open({
   filename: 'brukarSystem.db',
@@ -49,7 +49,6 @@ app.post("/register", async (req, res) => {
 
   await db.run("INSERT INTO users (username, email, password) VALUES (?, ?, ?)", fname, email, passwordHash);
   res.redirect("/");
-
 })
 
 app.post('/auth', async function (req, res) {
@@ -70,6 +69,9 @@ app.post('/auth', async function (req, res) {
 
     if (isPasswordMatched) {
       res.status(200);
+      if (checkInDb.role == 1) {
+        req.session.role = true;
+      }
       // If the account exists
       // Authenticate the user
       req.session.loggedin = true;
@@ -92,33 +94,47 @@ app.get('/home', async function (req, res) {
     // send variables
     const workouts = await db.all(`select * from workouts;`);
     const workName = await db.all(`select workoutName from workouts;`);
-    
-    console.log(workouts)
 
     // Output username
     const user = req.session.email;
-    res.render('home', {user, workouts, workName}); 
+    const role = req.session.role; 
+
+    res.render('home', {user, workouts, workName, role});
   } else {
     // Not logged in
     res.send('Please login to view this page!');
   }
-
-});
-
-app.get('/workouts', function (req, res) {
-  // res.render('workouts');
 });
 
 app.post('/workouts', async (req, res) => {
   res.render('workouts');
   const data = req.body;
-  console.log(data);
+});
+
+app.get('/admin', async function (req, res) {
+  if (req.session.loggedin) {
+    const user = req.session.email;
+    const db = await dbPromise;
+    const query = 'SELECT * FROM users';
+    const users = await db.all(query);
+
+    let getUserDetails = `SELECT * FROM users WHERE email = '${user}' AND role = 1`;
+    let checkInDb = await db.get(getUserDetails);
+
+    if (checkInDb === undefined) {
+      res.status(400);
+      res.send("Invalid user");
+    } else {
+      let admin = false;
+      res.status(200);
+      res.render('admin', {user, admin, users});
+    }
+  }
 });
 
 app.get("/logout", async (req, res) => {
-
   req.session.loggedin = false;
   req.session.username = '';
-
+  req.session.role = 0; // ADMIN SYSTEM
   res.redirect("/")
 })
