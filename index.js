@@ -31,6 +31,24 @@ app.get('/', (req, res) => {
   res.render('login');
 });
 
+app.get('/user', async function (req, res) {
+  // If the user is loggedin
+  if (req.session.loggedin) {
+    const db = await dbPromise;
+    // send variables
+    const queryUser = await db.all('SELECT * FROM users WHERE email = ?', req.session.email);
+    
+    // Output username
+    const user = req.session.email;
+    const role = req.session.role; 
+
+    res.render('user', {user, queryUser, role});
+  } else {
+    // Not logged in
+    res.send('Please login to view this page!');
+  }
+});
+
 app.get("/register", async (req, res) => {
   res.render("register");
 })
@@ -86,7 +104,6 @@ app.post('/auth', async function (req, res) {
   }
 });
 
-// http://localhost:3000/home
 app.get('/home', async function (req, res) {
   // If the user is loggedin
   if (req.session.loggedin) {
@@ -104,6 +121,10 @@ app.get('/home', async function (req, res) {
     // Not logged in
     res.send('Please login to view this page!');
   }
+});
+
+app.post('/home', async (req, res) => {
+  console.log(req);
 });
 
 app.post('/workouts', async (req, res) => {
@@ -137,7 +158,7 @@ app.post('/admin', async (req, res) => {
   const username = req.body.username;
   
   await db.get(`delete from users where username = '${username}'`);
-  res.redirect('/home');
+  res.redirect('/admin');
   console.log(req.body);
 });
 

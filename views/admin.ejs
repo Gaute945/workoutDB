@@ -3,14 +3,15 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Admin</title>
   </head>
   <body>
-    <nav>
-      <div class="navlinks">
-        <a href="/home">Heim</a>
-        <a href="/logout">Logg ut</a>
-      </div>
+    <nav class="topnav">
+      <a href="/home" class="navlinks">Heim </a>
+      <a class="navlinks"><%= user %></a>
+      <a href="/logout" class="navlinks">Logg ut </a> 
+      <a href="/admin" class="navlinks active">Admin </a>
     </nav>
     <h2>Admin site</h2>
     <h3>Users</h3>

@@ -2,17 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="stylesheet" href="style.css">
     <title>Select a Workout</title>
   </head>
   <body>
-    <nav>
-      <div class="navlinks">
-        <a href="/home">Heim</a>
-        <p><%= user %></p>
-        <a href="/logout">Logg ut</a> 
-        <a href="/admin">Admin</a>
-      </div>
+    <nav class="topnav">
+      <a href="/home" class="navlinks active">Heim </a>
+      <a href="/user" class="navlinks"><%= user %></a>
+      <a href="/logout" class="navlinks">Logg ut </a> 
+      <a href="/admin" class="navlinks">Admin </a>
     </nav>
     <h1>Select a Workout</h1> 
     <form action="/workouts" method="post">
