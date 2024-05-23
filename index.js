@@ -118,8 +118,8 @@ app.get('/admin', async function (req, res) {
     const query = 'SELECT * FROM users';
     const users = await db.all(query);
 
-    let getUserDetails = `SELECT * FROM users WHERE email = '${user}' AND role = 1`;
-    let checkInDb = await db.get(getUserDetails);
+    let getUserDetails = `SELECT * FROM users WHERE email = ? AND role = 1`;
+    let checkInDb = await db.get(getUserDetails, [user]);
 
     if (checkInDb === undefined) {
       res.status(400);
@@ -136,7 +136,7 @@ app.post('/admin', async (req, res) => {
   const db = await dbPromise;
   const username = req.body.username;
   
-  await db.get(`delete from users where username = '${username}'`);
+  await db.get(`delete from users where username = ?`, username);
   res.redirect('/home');
   console.log(req.body);
 });
