@@ -3,14 +3,15 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Admin</title>
   </head>
   <body>
-    <nav>
-      <div class="navlinks">
-        <a href="/home">Heim</a>
-        <a href="/logout">Logg ut</a>
-      </div>
+    <nav class="topnav">
+      <a href="/home" class="navlinks">Heim </a>
+      <a class="navlinks"><%= user %></a>
+      <a href="/logout" class="navlinks">Logg ut </a> 
+      <a href="/admin" class="navlinks active">Admin </a>
     </nav>
     <h2>Admin site</h2>
     <h3>Users</h3>
@@ -18,12 +19,15 @@
       <tr>
         <th>Brukernavn</th>
         <th>Email</th>
+        <th>Id</th>
         <th>Action</th>
       </tr>
       <% users.forEach((user) => { %>
       <tr>
         <td><%= user.username %></td>
         <td><%= user.email %></td>
+        <td><%= user.userId %></td>
+        <td><a href="/admin/edit/<%=user.userId%>">Edit</a></td>
         <td>
           <form action="/admin" method="post">
             <input type="hidden" name="username" value="<%= user.username %>">
@@ -35,7 +39,7 @@
       <% }) %>
     </table>
     <a href="/register">New User</a> <br>
-    <a href="/">Back to Category Selection</a> <br>
+    <a href="/home">Back to Category Selection</a> <br>
   </body>
 </html>
 

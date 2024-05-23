@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="stylesheet" href="style.css">
+    <title>Select a Workout</title>
+  </head>
+  <body>
+    <nav class="topnav">
+      <a href="/home" class="navlinks">Heim </a>
+      <a href="/user" class="navlinks active"><%= user %></a>
+      <a href="/logout" class="navlinks">Logg ut </a> 
+      <a href="/admin" class="navlinks">Admin </a>
+    </nav>
+    <h1><%= user %>'s Page</h1> 
+    <form action="/workouts" method="post"> 
+      <button type="submit">Submit</button>
+    </form>
+    <script>
+      console.log(queryUsers);
+    </script>
+  </body>
+</html>
